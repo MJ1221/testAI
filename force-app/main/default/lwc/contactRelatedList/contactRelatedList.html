@@ -1,0 +1,103 @@
+<!--
+  @description       : 
+  @author            : minju.park@dkbmc.com
+  @group             : 
+  @last modified on  : 01-10-2024
+  @last modified by  : minju.park@dkbmc.com
+-->
+<template>
+    <lightning-card   title="Contact Related List" icon-name="standard:contact">
+      <div style="width: 8vw; margin-left: 56vw; margin-bottom: 1vh;">
+        <lightning-button variant="brand-outline" label="Delete" title="Primary action with lighter look" onclick={checkDelete}  class="slds-m-left_x-small"></lightning-button>
+        <lightning-button variant="brand-outline" label="New" title="Primary action with lighter look" onclick={handleNewModal} class="slds-m-left_x-small"></lightning-button>
+      </div>
+      <div style="height: 300px;">
+            <lightning-datatable
+                    key-field="id"
+                    data={data}
+                    columns={columns}
+                    onrowselection={handleCheck}
+                    onrowaction={handleRowAction}
+                   >
+            </lightning-datatable>
+        </div>
+    </lightning-card>
+
+    <template if:true={isEdit}>
+        <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+              <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" onclick={handleEditCancel}>
+                <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
+                  <use xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg#close" ></use>
+                </svg>
+                <span class="slds-assistive-text">Cancel and close</span>
+              </button>
+              <div class="slds-modal__header">
+                <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Edit Pavlova Stella</h1>
+              </div>
+              <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                <lightning-record-edit-form
+                    record-id={conId}
+                    object-api-name="Contact">
+                    <lightning-input-field field-name="FirstName"  onchange={changeValue}></lightning-input-field>
+                    <lightning-input-field field-name="LastName" onchange={changeValue}> </lightning-input-field>
+                    <lightning-input-field field-name="Title"  onchange={changeValue}> </lightning-input-field>
+                    <lightning-input-field field-name="Email"  onchange={changeValue}> </lightning-input-field>
+                    <lightning-input-field field-name="Phone"  onchange={changeValue}> </lightning-input-field>
+            </lightning-record-edit-form>
+              </div>
+              <div class="slds-modal__footer">
+                <button class="slds-button slds-button_neutral" aria-label="Cancel and close" onclick={handleEditCancel}>Cancel</button>
+                <button class="slds-button slds-button_brand" onclick={handleEditUpdate}>Update</button>
+              </div>
+            </div>
+          </section>
+          <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+    </template>
+    <template if:true={isDeleteCheck}>
+      <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+          <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" onclick={handleDelCancel}>
+            <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
+              <use xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg#close"></use>
+            </svg>
+            <span class="slds-assistive-text">Cancel and close</span>
+          </button>
+          <div class="slds-modal__header">
+            <h1 id="modal-heading-02" class="slds-modal__title slds-hyphenate">Delete Contact</h1>
+          </div>
+          <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-2">
+            <p>Are you sure you want to delete this contact?</p>
+          </div>
+          <div class="slds-modal__footer">
+            <button class="slds-button slds-button_neutral" aria-label="Cancel and close" onclick={handleDelCancel} >Cancel</button>
+            <button class="slds-button slds-button_brand" onclick={handleDelete}  >Delete</button>
+          </div>
+        </div>
+      </section>
+      <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+    </template>
+    <template if:true={isDelete}>
+      <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+          <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" onclick={handleDelCancel}>
+            <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
+              <use xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg#close"></use>
+            </svg>
+            <span class="slds-assistive-text">Cancel and close</span>
+          </button>
+          <div class="slds-modal__header">
+            <h1 id="modal-heading-03" class="slds-modal__title slds-hyphenate">Delete Contact</h1>
+          </div>
+          <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-3">
+            <p>Are you sure you want to delete this contact?</p>
+          </div>
+          <div class="slds-modal__footer">
+            <button class="slds-button slds-button_neutral" aria-label="Cancel and close" onclick={handleDelCancel} >Cancel</button>
+            <button class="slds-button slds-button_brand" onclick={handleDelRow}  >Delete</button>
+          </div>
+        </div>
+      </section>
+      <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+    </template>
+</template>

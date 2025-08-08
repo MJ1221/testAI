@@ -1,0 +1,28 @@
+<!--
+  @description       : 
+  @author            : minju.park@dkbmc.com
+  @group             : 
+  @last modified on  : 12-03-2024
+  @last modified by  : minju.park@dkbmc.com
+-->
+<apex:page standardController="Account" recordSetVar="Accounts" >
+
+    <apex:pageblock >
+
+        <apex:repeat var="a" value="{!Accounts}" rendered="true"  id="account_list">
+
+            <li>
+
+                <apex:outputLink value="/{!a.ID}" >
+
+                    <apex:outputText value="{!a.Name}"/>
+
+                </apex:outputLink>
+
+            </li>
+
+        </apex:repeat>
+
+    </apex:pageblock>
+
+</apex:page>

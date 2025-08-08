@@ -1,0 +1,71 @@
+<!--
+  @description       : 
+  @author            : minju.park@dkbmc.com
+  @group             : 
+  @last modified on  : 01-12-2024
+  @last modified by  : minju.park@dkbmc.com
+-->
+
+<template>
+    <lightning-card>
+        <h3 slot="title">
+            <lightning-icon
+                icon-name="standard:outcome"
+                size="medium"
+                class="slds-m-right_small">
+            </lightning-icon>
+            출장보고서
+        </h3>
+        <aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,lightning:actionOverride,flexipage:availableForAllPageTypes,force:lightningQuickAction"
+               access="global">
+            <!-- <aura:attribute name="recordId" type="String" />
+            <aura:attribute name="objectApiName" type="String" /> -->
+        
+            <!-- <c:businessTripReport recordId="{!v.recordId}" objectApiName="{!v.objectApiName}" /> -->
+        </aura:component>
+        <div slot="actions">
+            <lightning-button variant="brand-outline" label="New" title="Primary action with lighter look" onclick={handleModal}  ></lightning-button>
+        </div>
+        <lightning-datatable
+          data={data}
+          columns={columns}
+          key-field="Id"    >
+        </lightning-datatable>
+    </lightning-card>
+    <template if:true={modal}>
+        <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open slds-modal_small" data-id="modal" >
+            <div class="slds-modal__container" >
+                <div class="slds-modal__header">
+                    <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">출장보고서</h1>
+                </div>      
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <lightning-record-edit-form object-api-name="bsnsTripRprt__c" >
+                        <lightning-layout>
+                            <lightning-layout-item  size="6">
+                                <lightning-input-field onchange={handleChange} field-name='Name'></lightning-input-field> 
+                                <lightning-input-field onchange={handleChange} field-name='money__c' label="출장비용"></lightning-input-field> 
+                            </lightning-layout-item>
+                            <lightning-layout-item  size="6" >
+                                <article class="slds-card" > 
+                                    <c-bsns-trip-rprt-lokkup-field 
+                                        icon-name="standard:product"
+                                        s-object-api-name="Contact"
+                                        label="동행인"
+                                        onlookupupdate={handleValueSelectedOnAccount}
+                                        data-index={index}
+                                        placeholder="Search Contact here..."
+                                    ></c-bsns-trip-rprt-lokkup-field>
+                                </article>          
+                            </lightning-layout-item>
+                        </lightning-layout>
+                    </lightning-record-edit-form>
+                </div>
+                <div class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" aria-label="Cancel and close" onclick={closeModal} >Cancel</button>
+                    <button class="slds-button slds-button_brand" onclick={submitData}>Save</button>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+    </template>
+</template>

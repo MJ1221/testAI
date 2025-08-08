@@ -1,0 +1,31 @@
+<!--
+  @description       : 
+  @author            : minju.park@dkbmc.com
+  @group             : 
+  @last modified on  : 07-17-2024
+  @last modified by  : minju.park@dkbmc.com
+-->
+<aura:component  implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction">
+    <!-- <section role="dialog" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-modal_medium slds-fade-in-open">
+        <div class="slds-modal__container arrival">
+            <div class=" modal_contain">
+                <div class="slds-modal__container arrival">
+                    <header class="modal-header slds-modal__header">
+
+                        <h2 class="slds-text-heading_medium" id="modal-heading-id">promotion Attend</h2>
+                    </header>  -->
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        <div align="center">
+                            정보동의
+                        </div>
+                    </div>
+<!-- 
+                    <footer class="slds-modal__footer">
+                        <lightning:button variant="brand" label="Attend" onclick="{!c.arrivalY}" class="btnY"/>
+                    </footer>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open" role="presentation"></div> -->
+</aura:component>

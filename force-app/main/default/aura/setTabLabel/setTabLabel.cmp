@@ -1,0 +1,21 @@
+<!--
+  @description       : 
+  @author            : minju.park@dkbmc.com
+  @group             : 
+  @last modified on  : 04-09-2024
+  @last modified by  : minju.park@dkbmc.com
+-->
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <lightning:workspaceAPI aura:id="workspace" />
+    <lightning:flow aura:id="flowData" />
+    <aura:attribute name="accountName" type="String" />
+    <aura:attribute name="clickCount" type="Integer" default="0" />
+
+    <!-- <aura:handler name="init" value="{!this}" action="{!c.fnCancel}"/> -->
+    <div aura:id="buttonContainer">
+      <lightning:button label="click" onclick="{!c.fnCancel}"/>
+  </div>
+
+
+
+</aura:component>

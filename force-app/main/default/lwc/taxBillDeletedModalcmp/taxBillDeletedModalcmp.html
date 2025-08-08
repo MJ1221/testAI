@@ -1,0 +1,17 @@
+<template>
+    <lightning-modal-header label='세금계산서 발행 삭제'></lightning-modal-header>
+    <lightning-modal-body>
+        <template if:true={isSpinner}>
+            <div style="position: relative;">
+                <lightning-spinner alternative-text="Loading" size="x-small"></lightning-spinner>
+            </div>
+        </template>
+        <div style="text-align: center; font-size: medium; font-weight: bold;">
+            세금계산서를 삭제 하시겠습니까?
+        </div>
+    </lightning-modal-body>
+    <lightning-modal-footer>
+        <lightning-button label='취소' onclick={handleCloseClick}></lightning-button>
+        <lightning-button variant="brand" label='삭제'  onclick={handleDelete} ></lightning-button>
+    </lightning-modal-footer>
+</template>

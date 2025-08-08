@@ -1,0 +1,12 @@
+<!--
+  @description       : 
+  @author            : minju.park@dkbmc.com
+  @group             : 
+  @last modified on  : 01-10-2025
+  @last modified by  : minju.park@dkbmc.com
+-->
+<aura:component implements="force:lightningQuickAction,force:hasRecordId" >
+    <aura:attribute name="label" type="String" default="Custom Button"/>
+    
+    <lightning:button label="{!v.label}" onclick="{!c.handleClick}" variant="brand"/>
+</aura:component>

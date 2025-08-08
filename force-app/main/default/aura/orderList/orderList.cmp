@@ -1,0 +1,196 @@
+<!--
+  @description       : 
+  @author            : minju.park@dkbmc.com
+  @group             : 
+  @last modified on  : 03-12-2024
+  @last modified by  : minju.park@dkbmc.com
+-->
+<aura:component controller="orderList" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global">
+    <!-- attributes -->
+    <aura:attribute name="data" type="List"/>
+    <aura:attribute name="editList" type="List"/>
+    <aura:attribute name="columns" type="List"/>
+    <aura:attribute name="errors" type="Object" default="[]"/>
+    <aura:attribute name="draftValues" type="Object" default="[]"/>
+    <aura:attribute name="isEdit" type="Boolean"/>
+    <aura:attribute name="clickedValues" type="List" />
+    <aura:attribute name="delIdList" type="String[]" />
+    <aura:attribute name="isCheck" type="Boolean"/>
+    <aura:attribute name="opButton" type="Boolean" default="false" />
+    <aura:attribute name="isModal" type="Boolean" default ="false"/>
+    <aura:attribute name="orderId" type="String"/>
+    <aura:attribute name="searchOrderName" type="String"/>
+    <aura:attribute name="searchProductName" type="String"/>
+    <aura:attribute name="searchOrderDate" type="String" />
+    <aura:attribute name="isActiveOptions" type="List" default="['true', 'false']"/>
+    <aura:attribute name="selectedStatus" type="String" />
+    <aura:attribute name="statusOptions" type="List" />
+    <aura:attribute name="editAmount" type="Boolean" default="true" />
+    <aura:attribute name="editAfterAmount" type="Integer" />
+    <aura:attribute name="boolChange" type="Boolean" />
+    <aura:attribute name="isActiveFalse" type="Boolean" />
+    <!-- <div class="info3Row" onclick="{!c.fnLocation}" data-nmid="{!obj.Number}">
+        <p class="addressWrap">{!obj.WorkOrder__r.ADDRESS_NEW__c}&nbsp;{!obj.WorkOrder__r.ADDRESS_DETAIL__c}</p>
+    </div> -->
+    
+    
+    
+    <aura:attribute name="showErrorClass" type="Boolean" default="['true', 'false']"/>
+    <!-- handlers-->
+    <aura:handler name="init" value="{! this }" action="{! c.init }"/>
+    <div class="filter_section">
+        <lightning:layout>
+            <lightning:layoutItem padding="around-small" size="2">
+                <lightning:input style="width: 15vw;" label="주문명" value="{!v.searchOrderName}" ></lightning:input>
+            </lightning:layoutItem>
+            <lightning:layoutItem padding="around-small" size="2">
+                <lightning:input style="width: 15vw;" label="상품명" value="{!v.searchProductName}" ></lightning:input>
+            </lightning:layoutItem>
+            <!-- <lightning:layoutItem padding="around-small" size="2">
+                <lightning:input style="width: 15vw;" label="주문날짜" value="{!v.searchOrderDate}" ></lightning:input>
+            </lightning:layoutItem> -->
+            <lightning:layoutItem padding="around-small" size="2">
+                <lightning:combobox style="width: 15vw;" label="주문 현황"  placeholder="Select Progress" options="{!v.statusOptions}" onchange="{!c.handleStatus}" value="{!v.selectedStatus}" />
+            </lightning:layoutItem>
+            <lightning:layoutItem padding="around-small" size="2">
+                <lightning:input type="checkbox" label="isActive" aura:id="checkboxisActive" checked="{!v.isCheck}" onchange="{!c.handleCheckboxChange}" style="margin-top: 14.25%;"/>
+            </lightning:layoutItem>
+       
+            <lightning:layoutItem padding="around-small" size="2" class="button_Class">
+                <!-- <div style="float: right; height: 100%; margin-top:auto;" >
+                    <lightning:button label="Reset" onclick="{!c.handleReset}"></lightning:button>
+                    <lightning:button variant="brand" label="Search" onclick="{!c.handleSearch}"></lightning:button>
+                </div> -->
+            </lightning:layoutItem>
+            <lightning:layoutItem padding="around-small" size="2" class="button_Class">
+                <div style="float: right; height: 100%; margin-top:auto;" >
+                    <lightning:button label="Reset" onclick="{!c.handleReset}"></lightning:button>
+                    <lightning:button variant="brand" label="Search" onclick="{!c.handleSearch}"></lightning:button>
+                </div>
+            </lightning:layoutItem>
+        </lightning:layout>
+    </div>
+    <!-- the container element determine the height of the datatable -->
+    <div style="height: 80%; overflow-y: scroll;">
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered " aria-label="Example default base table of Opportunities" >
+            <thead>
+                <tr class="slds-line-height_reset slds-table_col-bordered">
+                    <!-- <th class="" scope="col">
+                        <div  title="allCheck">
+                            <lightning:input   type="checkbox" label="" variant="label-hidden" onclick="{!c.handleAllCheck}" id="checkAll"></lightning:input>
+                        </div>
+                    </th> -->
+                    <th class="" scope="col">
+                        <div  title="Order Name">Order Name</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div  title="Product">Product</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div  title="Price">Price</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div  title="Amount">Amount</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div  title="Date">Date</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div  title="Status">Status</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div  title="Status">isActive</div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- <aura:if isTrue="{!v.isEdit}"> 값은 true지만 화면에 뜨지 않아 한번 돌려줌 -->
+                <aura:iteration items="{!v.data}" var="item" indexVar="index" >
+                    <tr>
+                        <!-- <td data-label="checkbox" scope="row" style="width: 4%;">
+                            <div  title="" data-id ="checkbox">
+                                <lightning:input type="checkbox"   data-id="{v.clickedValues}" name="{!index}" checked="{v.isCheck}" onchange="{!c.handleCheck}" value="{!item.Id}" ></lightning:input>
+                            </div>
+                            </td> -->
+                        <td data-label="Name" scope="row">
+                            <div  title="{!item.Name}">
+                                <a onclick="{!c.handleRowClick}" data-index="{!index}" data-prodId="{!item.Id}" data-value="{!item.Status}" data-amount="{!item.Amount}">{!item.Name}</a>
+                            </div>
+                        </td>
+                        <td data-label="ProductName" scope="row">
+                            <div  title="{!item.ProductName}">{!item.ProductName}</div>
+                        </td>
+                        <td data-label="Price" scope="row">
+                            <div  title="{!item.Price}">{!item.Price}</div>
+                        </td>
+                        <td data-label="Amount" scope="row" class="editAmount">
+                            <div class="slds-truncate slds-text-align_right" title="{!item.Price}" onmouseover="{!c.mouseOver}" onmouseout="{!c.mouseOut}"  style="display:flex; "  value="{!index}" >{!item.Amount}
+                                    <!-- <div class="editDiv"  onmouseover="{!c.mouseOver}" aura:id="editShow" style="  margin-left: 87%;" >
+                                        <lightning:buttonIcon class="editButton"   value="{!index}" iconName="utility:edit" variant="bare" onclick="{!c.handleEdit}"></lightning:buttonIcon>
+                                    </div> -->
+                            </div>
+                               
+                            </td>
+                        <td data-label="SaveDate" scope="row">
+                            <div  title="{!item.SaveDate}">{!item.SaveDate}</div>
+                        </td>
+                        <td data-label="Status" scope="row">
+                            <div  title="{!item.Status}">{!item.Status}</div>
+                        </td>
+                        <td data-label="isActive" scope="row">
+                            <div  title="{!item.isActive}">{!item.isActive}</div>
+                        </td>
+                    </tr>
+                </aura:iteration>
+            </tbody>
+        </table>
+    </div>
+    <aura:if isTrue = "{!v.isModal}">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick="{!c.handleClose}">
+                        <lightning:icon iconName="utility:close" alternativeText="Close" variant="inverse" size="small"></lightning:icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h1 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">상품 상세</h1>
+                </header>
+                <div class="slds-modal__content slds-var-p-around_medium" id="modal-content-id-1">
+                    <lightning:layout >
+                        <lightning:layoutItem size="10" padding="around-small" class="slds-scrollable_y">
+                            <lightning:recordEditForm recordId="{!v.orderId}" objectApiName="Order__c">
+                                <lightning:outputField fieldName="Name" variant="label-inline"/>
+                                <lightning:outputField fieldName="Product__c" variant="label-inline"/>
+                                <lightning:outputField fieldName="Price__c" variant="label-inline"/>
+                                <aura:if isTrue="{!v.editAmount == true}">
+                                    <lightning:inputField fieldName="Amount__c" variant="label-inline" onchange="{!c.changeAmount}"  aura:id="amountEdit">{!v.editAfterAmount}</lightning:inputField>
+                                    <aura:set attribute="else">
+                                        <lightning:outputField fieldName="Amount__c" variant="label-inline"/>
+                                    </aura:set>
+                                </aura:if>
+                                <lightning:outputField fieldName="Date__c" variant="label-inline"/>
+                                <lightning:outputField fieldName="Status__c" variant="label-inline"/>
+                                <aura:if isTrue="{!v.editAmount == true}">
+                                    <lightning:inputField fieldName="isActive__c" variant="label-inline"  onchange="{!c.changeActive}" aura:id="activeCheck"/>
+                                    <aura:set attribute="else">
+                                        <lightning:outputField fieldName="isActive__c" variant="label-inline"/>
+                                    </aura:set>
+                                </aura:if>
+                            </lightning:recordEditForm>
+                        </lightning:layoutItem>
+                        <div class="slds-form-element__control">
+                            <input type="text" id="text-input-id-47" readonly="true" class="slds-input" value="{!v.resultCurrency}"/>
+                        </div>
+                      
+                    </lightning:layout>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning:button label="Close" onclick="{!c.handleClose}"></lightning:button> 
+                    <lightning:button label="Save" variant="brand" onclick="{!c.handleModalSave}"></lightning:button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+   
+</aura:component>

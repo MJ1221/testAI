@@ -1,0 +1,110 @@
+<template>
+  <div class="slds-form-element"  >
+    <div class="slds-form-element__control"  >
+      <div class="slds-size_1-of-2">
+        <div class="slds-combobox_container" >
+          <div class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click slds-is-open">
+            <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right" role="none">
+              <div role="combobox" tabindex="0" class="slds-input_faux slds-combobox__input" style="width: 50%;"
+                aria-labelledby="combobox-label-id-131 combobox-id-59-selected-value" id="combobox-id-59-selected-value"
+                aria-controls="listbox-id-29" aria-expanded="false" aria-haspopup="listbox" onclick={handleClickCombo} onblur={blank}>
+                <span class="slds-truncate" id="combobox-value-id-96">{label.Click_here}</span>
+              </div>
+              <span class="slds-icon_container slds-icon-utility-down slds-input__icon slds-input__icon_right">
+                <svg class="slds-icon slds-icon slds-icon_x-small slds-icon-text-default" aria-hidden="true">
+                  <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#down"></use>
+                </svg>
+              </span>
+            </div>
+            <div id="listbox-id-7" class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid " role="listbox"
+              aria-label="Placeholder for Dropdown Items" tabindex="0" aria-busy="false" data-id="combobox" style="display: none; width: 50%; height: 9rem;
+               margin-left:-14.8rem; overflow-y:auto;">
+              <ul class="slds-listbox slds-listbox_vertical " role="presentation">
+                <template for:each={picklistRegionValueData} for:item="picklist">
+                  <li role="presentation" class="slds-listbox__item" onclick={handleClick} key={picklist.Id} data-value={picklist.value}  >
+                    <div aria-checked="true"
+                      class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small slds-is-selected"
+                      role="option">
+                      <span class="slds-media__figure slds-listbox__option-icon" >
+                        <span class="slds-icon_container slds-icon-utility-anchor slds-current-color"  >
+                          <lightning-icon  icon-name="utility:right" alternative-text="right" title="right" size="x-small" style="display: none;"
+                            data-id="checkRegionIcon" ></lightning-icon>
+                        </span>
+                      </span>
+                      <span class="slds-media__body">
+                        <span class="firstPicklist" title="Accounts" data-id="first" data-value="value">{picklist.value}</span>
+                      </span>
+                    </div>
+                  </li>
+                </template>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+      <div id="listbox-id-6" class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid slds-size_1-of-2 "
+        role="listbox" aria-label="Placeholder for Dropdown Items" tabindex="0" aria-busy="false"
+        style="margin-left: -17.5rem; width:20%; height: 9rem; display:none; overflow-y:auto; " data-id="sub">
+        <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+          <template if:true={secondsValue}>
+            <template for:each={secondsValue} for:item="selectedZoneValue">
+              <li role="presentation" class="slds-listbox__item" key={selectedZoneValue.value} onclick={handleValueClick} data-label={selectedZoneValue.value}  >
+                <div aria-selected="true" aria-checked="true" id="option731"
+                  class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small " role="option">
+                  <span class="slds-media__figure slds-listbox__option-icon value2" >
+                    <span class="slds-icon_container slds-icon-utility-anchor slds-current-color" >
+                        <lightning-icon class="checkValue" icon-name="utility:check" alternative-text="check" title="check" size="x-small"
+                          data-id="checkIcon" style="display: none;"></lightning-icon>
+                    </span>
+                  </span>
+                  <span class="slds-media__body">
+                    <span class="secondsPicklist slds-truncate" title="Accounts" data-label="selectedZoneValue.value" >{selectedZoneValue.value}</span>
+                  </span>
+                </div>
+              </li>
+            </template>
+          </template>
+        </ul>
+      </div>
+      <div style="margin-top: 14rem; margin-bottom:3rem;">
+        <lightning-button label="console test" onclick={handleTest}></lightning-button>
+        <lightning-button class="buttonClick" variant="brand" label="Submit" title="Primary action" onclick={clickButton} data-id={button} ></lightning-button>
+      </div>
+      <div class=" slds-scrollable_y" style=" height: 100%;  width: 100%; overflow-x: auto;" >
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered "
+          aria-labelledby="element-with-table-label other-element-with-table-label" style=" width: 100%; ">
+          <thead>
+            <tr class="slds-line-height_reset">
+              <th class="" scope="col">
+                <div class="slds-truncate datatablee" title="Opportunity Name">Rigion</div>
+              </th>
+              <th class="" scope="col"  style="width: 500px;">
+                <div class="slds-truncate" title="Account Name">Zone</div>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <template if:true={firstValue}>
+              <template for:each={firstValue} for:item="selectedValue">
+                <tr key={selectedValue.value}>
+                  <td data-label="Region">{selectedValue.value}</td>
+                  <td data-label="Zone"></td> 
+                </tr>
+              </template>
+            </template>
+            <template if:true={datatableValue}>
+              <template for:each={datatableValue} for:item="selectedZoneValue">
+                <tr key={selectedZoneValue.value}>
+                  <td data-label="Region"></td> 
+                  <td data-label="Zone">{selectedZoneValue.value}</td> 
+                </tr>
+              </template>
+            </template>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</template>

@@ -1,0 +1,22 @@
+.THIS.show {
+    display: block;
+     
+ }
+ .THIS.hide {
+     display: none;
+      
+  }
+ .THIS.delete {
+     margin-top: 3.5%; 
+     right: -95%;    
+ }
+ .THIS.save {
+     margin-left: 43%   
+ }
+ .THIS.cancel {
+     margin-left: 1%  
+ }
+
+ .THIS .slds-checkbox {
+    display: inline-block;
+}

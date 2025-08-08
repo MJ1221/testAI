@@ -1,0 +1,11 @@
+<!--
+  @description       : 
+  @author            : minju.park@dkbmc.com
+  @group             : 
+  @last modified on  : 12-03-2024
+  @last modified by  : minju.park@dkbmc.com
+-->
+<apex:page >
+        <apex:image alt="eye" title="eye"
+                 url="{!URLFOR($Resource.vfimagetest, 'cats/kitten1.jpg')}"/>
+</apex:page>

@@ -1,0 +1,148 @@
+<template>
+    <lightning-modal-header label='세금계산서'></lightning-modal-header>
+    <lightning-modal-body>
+        <template if:true={isSpinner}>
+            <div class="align-center">
+                <lightning-spinner alternative-text="Loading" size="x-small"></lightning-spinner>
+            </div>
+        </template>
+        <table class="tg">
+            <tbody>
+                <tr>
+                    <td class="tg-jb4y" rowspan="5" style="writing-mode: vertical-lr;">공 급 자</td>
+                    <td class="tg-4ueo" colspan="2">등록번호</td>
+                    <td class="tg-5u8v" colspan="5">123-45-67890</td>
+                    <td class="tg-jb4y" colspan="4">종사업장</td>
+                    <td class="tg-lboi" colspan="3">　&nbsp;&nbsp;</td>
+                    <td class="tg-jb4y" rowspan="5" style="writing-mode: vertical-lr;">공 급 받 는 자</td>
+                    <td class="tg-jb4y">등록번호</td>
+                    <td class="tg-5u8v" colspan="5">888-88-88888</td>
+                    <td class="tg-jb4y" colspan="3">종사업장</td>
+                    <td class="tg-lboi">　</td>
+                </tr>
+                <tr>
+                    <td class="tg-4ueo" colspan="2">상 호</td>
+                    <td class="tg-5u8v" colspan="5">DKBMC</td>
+                    <td class="tg-jb4y" colspan="2">성 명</td>
+                    <td class="tg-5u8v" colspan="5">배창욱</td>
+                    <td class="tg-jb4y">상     호</td>
+                    <td class="tg-5u8v" colspan="5">{invoiceeCorpName}</td>
+                    <td class="tg-jb4y" colspan="2">성 명</td>
+                    <td class="tg-5u8v" colspan="2">{invoiceeCEOName}</td>
+                </tr>
+                <tr>
+                    <td class="tg-jb4y" colspan="2">사 업 장 주     소</td>
+                    <td class="tg-5u8v" colspan="12">서울 강남구 봉은사로 434 3층</td>
+                    <td class="tg-jb4y">사 업 장 주     소</td>
+                    <td class="tg-5u8v" colspan="9">{invoiceeAddr}</td>
+                </tr>
+                <tr>
+                    <td class="tg-9wq8" colspan="2">업     태</td>
+                    <td class="tg-5u8v" colspan="3">IT</td>
+                    <td class="tg-4ueo">종 목</td>
+                    <td class="tg-lboi" colspan="8">판매</td>
+                    <td class="tg-jb4y">업     태</td>
+                    <td class="tg-5u8v" colspan="2">{invoiceeBizClass}</td>
+                    <td class="tg-4ueo" colspan="2">종 목</td>
+                    <td class="tg-5u8v" colspan="5">{invoiceeBizType}</td>
+                </tr>
+                <tr>
+                    <td class="tg-jb4y" colspan="2">이 메 일</td>
+                    <td class="tg-0ra1" colspan="12"><a>iltae.seo@dkbmc.com</a></td>
+                    <td class="tg-jb4y">이 메 일</td>
+                    <td class="tg-0ra1" colspan="9"><a>{invoiceeEmail1}</a></td>
+                </tr>
+                <tr>
+                    <td class="tg-jb4y" colspan="3">작성일자</td>
+                    <td class="tg-4ueo" colspan="14">공급가액</td>
+                    <td class="tg-4ueo" colspan="9">세액</td>
+                </tr>
+                <tr>
+                    <td class="tg-5u8v" colspan="3">{writeDate}</td>
+                    <td class="tg-b2x6" colspan="14">{supplyCostTotal}</td>
+                    <td class="tg-b2x6" colspan="9">{taxTotal}</td>
+                </tr>
+                <tr>
+                    <td class="tg-jb4y" colspan="3">비고1</td>
+                    <td class="tg-lboi" colspan="23">　&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="tg-4ueo">월</td>
+                    <td class="tg-4ueo">일</td>
+                    <td class="tg-4ueo" colspan="5">품목</td>
+                    <td class="tg-4ueo" colspan="6">규격</td>
+                    <td class="tg-4ueo" colspan="3">수량</td>
+                    <td class="tg-jb4y">단   가</td>
+                    <td class="tg-jb4y" colspan="2">공급가액</td>
+                    <td class="tg-4ueo" colspan="6">세액</td>
+                    <td class="tg-jb4y">비고</td>
+                </tr>
+                <template for:each={detailList} for:item="item"> 
+                    <tr key={item.serialNum}>
+                        <td key={item.serialNum} class="tg-9lm7">{item.serialNum}</td>
+                        <td key={item.serialNum} class="tg-9lm7">{item.serialNum}</td>
+                        <td key={item.serialNum} class="tg-5u8v" colspan="5">{item.itemName}</td>
+                        <td key={item.serialNum} class="tg-9lm7" colspan="6">{item.spec}</td>
+                        <td key={item.serialNum} class="tg-b2x6" colspan="3">{item.qty}</td>
+                        <td key={item.serialNum} class="tg-5u8v">{item.unitCost}</td>
+                        <td key={item.serialNum} class="tg-b2x6" colspan="2">{item.supplyCost}</td>
+                        <td key={item.serialNum} class="tg-b2x6" colspan="6">{item.tax}</td>
+                        <td key={item.serialNum} class="tg-5u8v"></td>
+                    </tr>
+                </template>
+                <tr>
+                    <td class="tg-za14">　</td>
+                    <td class="tg-za14">　</td>
+                    <td class="tg-za14" colspan="5">　&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    <td class="tg-za14" colspan="6">　&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    <td class="tg-za14" colspan="3">　&nbsp;&nbsp;</td>
+                    <td class="tg-za14">　</td>
+                    <td class="tg-za14" colspan="2">　 </td>
+                    <td class="tg-za14" colspan="6">　&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    <td class="tg-za14">　</td>
+                </tr>
+                <tr>
+                    <td class="tg-za14">　</td>
+                    <td class="tg-za14">　</td>
+                    <td class="tg-za14" colspan="5">　&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    <td class="tg-za14" colspan="6">　&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    <td class="tg-za14" colspan="3">　&nbsp;&nbsp;</td>
+                    <td class="tg-za14">　</td>
+                    <td class="tg-za14" colspan="2">　 </td>
+                    <td class="tg-za14" colspan="6">　&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    <td class="tg-za14">　</td>
+                </tr>
+                <tr>
+                    <td class="tg-za14">　</td>
+                    <td class="tg-za14">　</td>
+                    <td class="tg-za14" colspan="5">　&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    <td class="tg-za14" colspan="6">　&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    <td class="tg-za14" colspan="3">　&nbsp;&nbsp;</td>
+                    <td class="tg-za14">　</td>
+                    <td class="tg-za14" colspan="2">　 </td>
+                    <td class="tg-za14" colspan="6">　&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    <td class="tg-za14">　</td>
+                </tr>
+                <tr>
+                    <td class="tg-4ueo" colspan="5">합계금액</td>
+                    <td class="tg-4ueo" colspan="4">현금</td>
+                    <td class="tg-4ueo" colspan="6">수표</td>
+                    <td class="tg-4ueo" colspan="3">어음</td>
+                    <td class="tg-jb4y">외상미수금</td>
+                    <td class="tg-5u8v" colspan="7" rowspan="2">이 금액을 [영수] 함</td>
+                </tr>
+                <tr>
+                    <td class="tg-b2x6" colspan="5">{totalAmount}</td>
+                    <td class="tg-za14" colspan="4">　&nbsp;&nbsp;&nbsp;</td>
+                    <td class="tg-za14" colspan="6">　&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    <td class="tg-za14" colspan="3">　&nbsp;&nbsp;</td>
+                    <td class="tg-za14">　</td>
+                </tr>
+            </tbody>
+        </table>
+    </lightning-modal-body>
+    <lightning-modal-footer>
+        <lightning-button label='취소' onclick={handleCloseClick}></lightning-button>
+        <lightning-button variant="brand" label='발행' onclick={handleSaveClick} ></lightning-button>
+    </lightning-modal-footer>
+</template>

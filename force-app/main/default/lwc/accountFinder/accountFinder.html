@@ -1,0 +1,27 @@
+<!--
+  @description       : 
+  @author            : minju.park@dkbmc.com
+  @group             : 
+  @last modified on  : 02-01-2024
+  @last modified by  : minju.park@dkbmc.com
+-->
+<template>
+    <lightning-card>
+        <lightning-input
+            type="number"
+            label="Annual Revenue"
+            formatter="currency"
+            value={annualRevenue}
+            onchange={handelChange}>
+        </lightning-input>
+        <lightning-button
+            label="Reset"
+            onclick={reset}>
+        </lightning-button>
+        <template if:true ={account.data}>
+            <template for:each={accounts.data} for:item="account">
+                <p key={account.Id}>{account.Name}</p>
+            </template>
+        </template>
+    </lightning-card>
+</template>

@@ -1,0 +1,96 @@
+<!-- sldsValidatorIgnore -->
+
+<template>
+  <lightning-card>
+    <h3 slot="title">
+      <lightning-icon
+        icon-name="standard:account"
+        size="medium"
+        class="slds-m-right_small"
+      ></lightning-icon>
+      Custom Account
+    </h3>
+
+    <lightning-layout multiple-rows="true" style="padding: 5px">
+      <lightning-layout-item size="6"> </lightning-layout-item>
+
+      <lightning-layout-item size="6">
+        <div class="slds-grid" style="padding-left: 538px">
+          <lightning-input
+            type="search"
+            label="Search Account"
+            onchange={getSearchData}
+            style="margin-right: 10px"
+            id="accountSearch"
+          ></lightning-input>
+
+          <lightning-button-menu
+            icon-name="utility:adduser"
+            alternative-text="Add user"
+            class="slds-p-top_large"
+            title="Add user"
+          >
+            <lightning-menu-item value="new" label="New"></lightning-menu-item>
+            <lightning-menu-item
+              value="edit"
+              label="Edit"
+            ></lightning-menu-item>
+          </lightning-button-menu>
+          <lightning-button-menu
+            icon-name="utility:settings"
+            alternative-text="Settings"
+            title="Settings"
+            class="slds-p-top_large"
+          >
+            <lightning-menu-item value="new" label="New"></lightning-menu-item>
+            <lightning-menu-item
+              value="edit"
+              label="Edit"
+            ></lightning-menu-item>
+            <lightning-menu-item
+              value="copy"
+              label="Copy"
+            ></lightning-menu-item>
+            <lightning-menu-item
+              value="refresh"
+              label="Refresh"
+            ></lightning-menu-item>
+          </lightning-button-menu>
+          <lightning-button-icon
+            icon-name="utility:delete"
+            alternative-text="Delete"
+            class="slds-p-top_large"
+            title="Delete"
+          ></lightning-button-icon>
+          <lightning-button-icon
+            icon-name="utility:edit"
+            alternative-text="edit"
+            class="slds-p-top_large"
+            title="Save"
+          ></lightning-button-icon>
+          <lightning-button-icon
+            icon-name="utility:bookmark"
+            alternative-text="Bookmark"
+            class="slds-p-top_large"
+            title="Bookmark"
+          ></lightning-button-icon>
+        </div>
+      </lightning-layout-item>
+    </lightning-layout>
+    <div style="height: 300px">
+      <lightning-datatable
+        data={data}
+        columns={columns}
+        key-field="Id"
+        sorted-by={sortBy}
+        sorted-direction={sortDirection}
+        onsort={handleSortAccountData}
+        enable-infinite-loading
+        onloadmore={loadMoreData}
+        hide-checkbox-column
+        show-row-number-column
+      >
+      </lightning-datatable>
+    </div>
+  </lightning-card>
+</template>

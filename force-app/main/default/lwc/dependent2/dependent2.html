@@ -1,0 +1,13 @@
+<template>
+    <lightning-combobox name="Region" 
+                        label="regionValue" 
+                        placeholder="Select Region" 
+                        options={regionValue} 
+                        onchange={handleChange} value={picklistFirstData}>
+                </lightning-combobox>
+
+                <lightning-combobox name="Zone" label="zoneValue" placeholder="Select Zone" options={picklistSecondsData}
+                onchange={handleChange} value={picklistSecondsData}>
+            </lightning-combobox>
+
+</template>

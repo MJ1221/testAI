@@ -1,0 +1,23 @@
+<!--
+  @description       : 
+  @author            : minju.park@dkbmc.com
+  @group             : 
+  @last modified on  : 05-10-2024
+  @last modified by  : minju.park@dkbmc.com
+-->
+<apex:page action="{!callError}">
+  <apex:includeLightning />
+    <div  id="compContainer" />
+   
+  <script>
+     $Lightning.use("c:vfTestapp", function() {
+         $Lightning.createComponent("c:vfPageTest",
+             {PassesValueFromVF:"Micro System"},
+             "compContainer",
+             function(cmp) {
+          console.log("c:VFPageApp loaded successfully in VF page");
+             }
+         );
+     });
+  </script>
+</apex:page>

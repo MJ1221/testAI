@@ -1,0 +1,19 @@
+<!--
+  @description       : 
+  @author            : minju.park@dkbmc.com
+  @group             : 
+  @last modified on  : 12-02-2024
+  @last modified by  : minju.park@dkbmc.com
+-->
+<apex:page showHeader="false" title="DisplayImage" sidebar="false"> 
+
+    <apex:form >
+        <table>
+            <tr>
+                <td width="1000px" height="600px;" align="center">
+                    <apex:image url="https://developer.salesforce.com/files/salesforce-developer-network-logo.png" />
+                </td>
+           </tr>
+        </table>
+    </apex:form>
+</apex:page>

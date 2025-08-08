@@ -1,0 +1,17 @@
+<!--
+  @description       : 
+  @author            : minju.park@dkbmc.com
+  @group             : 
+  @last modified on  : 05-07-2024
+  @last modified by  : minju.park@dkbmc.com
+-->
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global">
+    <lightning:workspaceAPI aura:id="workspace" />
+    
+    <aura:attribute name="PassesValueFromVF" type="string"/>
+    <b>Account Name from vf</b> : {!v.PassesValueFromVF}
+    <p> 
+    <button class="slds-button slds-button_brand" 
+    onclick="{! c.showMessage}">Show Message</button>          
+    </p>
+</aura:component>

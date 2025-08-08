@@ -1,0 +1,194 @@
+<template>
+    < class="datatable_test_class">
+        <!-- Table tag 사용 -->
+        <div class="wrapper">
+            <!-- Search Section -->
+            <div class="search-section">
+                <!-- Title -->
+                <div class="search-title">
+                    <p class="slds-text-heading_small slds-var-p-horizontal_medium slds-var-p-top_small">
+                        <lightning-icon icon-name="standard:opportunity" title="Opportunity Search"></lightning-icon>
+                        <span class="slds-var-p-horizontal_small">Custom List View(Table)</span>
+                    </p>
+                </div>
+                <!-- Search -->
+                <lightning-layout>
+                    <lightning-layout-item size="5">
+                        <div class="search-condition-single">
+                            <div class="field-title">Opportunity</div>
+                            <c-custom-lookup 
+                                oppty-custom-lookup
+                                class="search-condition-singleItem"
+                                label="" 
+                                selected-icon-name="standard:opportunity"
+                                object-label="Opportunity"
+                                object-api-name="Opportunity"
+                                field-api-name="Name"
+                                other-field-api-name="Type" 
+                                value="Oppty"
+                                onvalueselected={handleLookup}>
+                            </c-custom-lookup>
+                        </div>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="5">
+                        <div class="search-condition-single">
+                            <div class="field-title">Account</div>
+                            <c-custom-lookup 
+                                account-custom-lookup
+                                class="search-condition-singleItem"
+                                label="" 
+                                selected-icon-name="standard:account"
+                                object-label="Account"
+                                object-api-name="Account"
+                                field-api-name="Name"
+                                other-field-api-name="Type" 
+                                value="Acc"
+                                onvalueselected={handleLookup}>
+                            </c-custom-lookup>
+                        </div>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="1">
+                        <lightning-combobox name="sortby" label="sortby" variant="label-hidden" value={sortValue} options={sortOptions} onchange={handleChange}></lightning-combobox>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="1">
+                        <lightning-button label="Search" title="Search" onclick={handleSearch} class="btnClass"></lightning-button>
+                    </lightning-layout-item>
+                </lightning-layout>
+            </div>
+            <!-- Table Section -->
+            <div class="listview-box slds-scrollable">
+                <table role="grid" class="slds-table slds-table_cell-buffer slds-table_col-bordered">
+                    <thead>
+                        <!-- Header(Section) -->
+                        <tr class="slds-line-height_reset">
+                            <th colspan="13" class="list-view-header-section">Opportunity</th>
+                            <th colspan="14" class="list-view-header-section">Account</th>
+                        </tr>
+                        <!-- Header(Field) -->
+                        <tr class="slds-line-height_reset">
+                            <!-- Header(Opportunity) -->
+                            <template if:true={opptyHeader}>
+                                <template for:each={opptyHeader} for:item="item">
+                                    <th class="list-view-header-field" key={item.apiName} aria-label={item.fieldName} aria-sort="none" scope="col">
+                                        <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                                            <span class="slds-truncate" title={item.fieldName}>{item.fieldName}</span>
+                                        </div>
+                                    </th>
+                                </template>
+                            </template>
+                            <!-- Header(Account) -->
+                            <template if:true={accHeader}>
+                                <template for:each={accHeader} for:item="item">
+                                    <th class="list-view-header-field" key={item.apiName} aria-label={item.fieldName} aria-sort="none" scope="col">
+                                        <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                                            <span class="slds-truncate" title={item.fieldName}>{item.fieldName}</span>
+                                        </div>
+                                    </th>
+                                </template>
+                            </template>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template if:true={resultList}>
+                            <template for:each={resultList} for:item="item">
+                                <tr key={item}>
+                                    <!-- Opportunity -->
+                                    <td data-label="opptyName" scope="row">
+                                        <template if:true={item.opptyWrap.opptyName}>
+                                            <div class="slds-truncate" title={item.opptyWrap.opptyName}>
+                                                <a href={item.opptyWrap.opptyurl} target="_blank">{item.opptyWrap.opptyName}</a>
+                                            </div>
+                                        </template>
+                                    </td>
+                                    <td data-label="createDate" scope="row">
+                                        <div class="slds-truncate" title={item.opptyWrap.createDate}>{item.opptyWrap.createDate}</div>
+                                    </td>
+                                    <td data-label="type" scope="ㄴrow">
+                                        <div class="slds-truncate" title={item.opptyWrap.type}>{item.opptyWrap.type}</div>
+                                    </td>
+                                    <td data-label="amount" scope="row">
+                                        <div class="slds-truncate" title={item.opptyWrap.amount}>{item.opptyWrap.amount}</div>
+                                    </td>
+                                    <td data-label="expectRevenue" scope="row">
+                                        <div class="slds-truncate" title={item.opptyWrap.expectRevenue}>{item.opptyWrap.expectRevenue}</div>
+                                    </td>
+                                    <td data-label="closeDate" scope="row">
+                                        <div class="slds-truncate" title={item.opptyWrap.closeDate}>{item.opptyWrap.closeDate}</div>
+                                    </td>
+                                    <td data-label="stageName" scope="row">
+                                        <div class="slds-truncate" title={item.opptyWrap.stageName}>{item.opptyWrap.stageName}</div>
+                                    </td>
+                                    <td data-label="probability" scope="row">
+                                        <div class="slds-truncate" title={item.opptyWrap.probability}>{item.opptyWrap.probability}</div>
+                                    </td>
+                                    <td data-label="orderNumber" scope="row">
+                                        <div class="slds-truncate" title={item.opptyWrap.orderNumber}>{item.opptyWrap.orderNumber}</div>
+                                    </td>
+                                    <td data-label="mainCompetitor" scope="row">
+                                        <div class="slds-truncate" title={item.opptyWrap.mainCompetitor}>{item.opptyWrap.mainCompetitor}</div>
+                                    </td>
+                                    <td data-label="currentGenerator" scope="row">
+                                        <div class="slds-truncate" title={item.opptyWrap.currentGenerator}>{item.opptyWrap.currentGenerator}</div>
+                                    </td>
+                                    <td data-label="DnIStatus" scope="row">
+                                        <div class="slds-truncate" title={item.opptyWrap.DnIStatus}>{item.opptyWrap.DnIStatus}</div>
+                                    </td>
+                                    <td data-label="trackingNumber" scope="row">
+                                        <div class="slds-truncate" title={item.opptyWrap.trackingNumber}>{item.opptyWrap.trackingNumber}</div>
+                                    </td>
+                                    <!-- Account -->
+                                    <td data-label="accName" scope="row">
+                                        <template if:true={item.accWrap.accName}>
+                                            <div class="slds-truncate" title={item.accWrap.accName}>
+                                                <a href={item.accWrap.accurl} target="_blank">{item.accWrap.accName}</a>
+                                            </div>
+                                        </template>
+                                    </td>
+                                    <td data-label="AccountNumber" scope="row">
+                                        <div class="slds-truncate" title={item.accWrap.AccountNumber}>{item.accWrap.AccountNumber}</div>
+                                    </td>
+                                    <td data-label="accType" scope="row">
+                                        <div class="slds-truncate" title={item.accWrap.accType}>{item.accWrap.accType}</div>
+                                    </td>
+                                    <td data-label="BillingAddress" scope="row">
+                                        <div class="slds-truncate" title={item.accWrap.BillingAddress}>{item.accWrap.BillingAddress}</div>
+                                    </td>
+                                    <td data-label="ShippingAddress" scope="row">
+                                        <div class="slds-truncate" title={item.accWrap.ShippingAddress}>{item.accWrap.ShippingAddress}</div>
+                                    </td>
+                                    <td data-label="Phone" scope="row">
+                                        <div class="slds-truncate" title={item.accWrap.Phone}>{item.accWrap.Phone}</div>
+                                    </td>
+                                    <td data-label="Sic" scope="row">
+                                        <div class="slds-truncate" title={item.accWrap.Sic}>{item.accWrap.Sic}</div>
+                                    </td>
+                                    <td data-label="Industry" scope="row">
+                                        <div class="slds-truncate" title={item.accWrap.Industry}>{item.accWrap.Industry}</div>
+                                    </td>
+                                    <td data-label="CustomerPriority" scope="row">
+                                        <div class="slds-truncate" title={item.accWrap.CustomerPriority}>{item.accWrap.CustomerPriority}</div>
+                                    </td>
+                                    <td data-label="SLA" scope="row">
+                                        <div class="slds-truncate" title={item.accWrap.SLA}>{item.accWrap.SLA}</div>
+                                    </td>
+                                    <td data-label="NumberofLocations" scope="row">
+                                        <div class="slds-truncate" title={item.accWrap.NumberofLocations}>{item.accWrap.NumberofLocations}</div>
+                                    </td>
+                                    <td data-label="UpsellOpportunity" scope="row">
+                                        <div class="slds-truncate" title={item.accWrap.UpsellOpportunity}>{item.accWrap.UpsellOpportunity}</div>
+                                    </td>
+                                    <td data-label="SLASerialNumber" scope="row">
+                                        <div class="slds-truncate" title={item.accWrap.SLASerialNumber}>{item.accWrap.SLASerialNumber}</div>
+                                    </td>
+                                    <td data-label="SLAExpirationDate" scope="row">
+                                        <div class="slds-truncate" title={item.accWrap.SLAExpirationDate}>{item.accWrap.SLAExpirationDate}</div>
+                                    </td>
+                                </tr>
+                            </template>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    
+    </template>

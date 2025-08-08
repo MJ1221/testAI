@@ -1,0 +1,16 @@
+<!--
+  @description       : 
+  @author            : minju.park@dkbmc.com
+  @group             : 
+  @last modified on  : 12-02-2024
+  @last modified by  : minju.park@dkbmc.com
+-->
+<apex:page standardController="Contact">
+    <apex:pageBlock title="Contact VIew">
+        <apex:pageBlockSection >
+            First Name: {! Contact.FirstName } <br/>
+            Last Name: {! Contact.LastName } <br/>
+            Owner Email: {! Contact.Owner.Email } <br/>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+</apex:page>

@@ -1,0 +1,74 @@
+<!--
+  @description       : 
+  @author            : hayoon.jung@dkbmc.com
+  @group             : 
+  @last modified on  : 12-12-2023
+  @last modified by  : hayoon.jung@dkbmc.com
+-->
+<aura:component controller="ProductSearchController" access="global">
+    <!-- Overlay -->
+    <lightning:overlayLibrary aura:id="overlayLib" />
+    <!-- Atrribute -->
+    <aura:attribute name="prodId" type="String" access="global"/>
+    <aura:attribute name="prodAmount" type="Integer" access="global"/>
+    <aura:attribute name="prodCurrency" type="Integer" access="global"/>
+    <aura:attribute name="resultAmount" type="Integer"/>
+    <aura:attribute name="resultCurrency" type="Integer" default="0" />
+    <aura:attribute name="isLoading" type="Boolean" default="true"></aura:attribute>
+    <!-- Handler -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"></aura:handler>
+    
+    <!-- Style -->
+    <aura:html tag="style">
+        .slds-modal__container {
+            width: 80% !important;
+            max-width: 80% !important;
+        }
+        .modal-body.slds-modal__content.slds-p-around--medium {
+            padding: 0 !important;
+        }
+        .slds-grid {
+            height: 100%;
+        }
+        .modal_body_section {
+            height: calc(100% - 3.6rem);
+            padding: 1;
+        }
+    </aura:html>
+
+    <div class="modal_wrapper">
+        <div class="modal_body_section">
+            <lightning:layout>
+                <aura:if isTrue="{!v.isLoading}">
+                    <lightning:spinner alternativeText="Loading" size="medium"></lightning:spinner>
+                </aura:if>
+                <lightning:layoutItem size="10" padding="around-small" class="slds-scrollable_y">
+                    <lightning:recordEditForm recordId="{!v.prodId}" objectApiName="Product2" onload="{!c.handleLoad}">
+                        <lightning:outputField fieldName="Name" variant="label-inline"/>
+                        <lightning:outputField fieldName="Currency__c" variant="label-inline"/>
+                        <lightning:outputField fieldName="Amount__c" variant="label-inline"/>
+                        <lightning:outputField fieldName="Type1__c" variant="label-inline"/>
+                        <lightning:outputField fieldName="Type2__c" variant="label-inline"/>
+                        <lightning:outputField fieldName="Image__c" variant="label-inline"/>
+                    </lightning:recordEditForm>
+                </lightning:layoutItem>
+                <lightning:layoutItem size="2" padding="around-small">
+                    <label class="slds-form-element__label" for="text-input-id-47">수량</label>
+                    <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left-right">
+                        <lightning:buttonIcon class="slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default" iconName="utility:add" variant="bare" onclick="{!c.handleAdd}"></lightning:buttonIcon>
+                        <lightning:input type="number" id="text-input-id-47" value="{!v.resultAmount}" onchange="{!c.handleOrderChange}" placeholder="0"></lightning:input>
+                        <lightning:buttonIcon class="slds-icon slds-input__icon slds-input__icon_right slds-icon-text-default" iconName="utility:dash" variant="bare" onclick="{!c.handleMinus}"></lightning:buttonIcon>
+                    </div>
+                    <label class="slds-form-element__label" for="text-input-id-47">가격</label>
+                    <div class="slds-form-element__control">
+                        <input type="text" id="text-input-id-47" readonly="true" class="slds-input" value="{!v.resultCurrency}"/>
+                    </div>
+                </lightning:layoutItem>
+            </lightning:layout>
+        </div>
+        <div class="slds-modal__footer">
+            <lightning:button label="Close" onclick="{!c.handleClose}"></lightning:button>
+            <lightning:button label="Order" variant="brand" onclick="{!c.handleOrder}"></lightning:button>
+        </div>
+    </div>
+</aura:component>

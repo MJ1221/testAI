@@ -1,0 +1,22 @@
+<!--
+  @description       : 
+  @author            : minju.park@dkbmc.com
+  @group             : 
+  @last modified on  : 05-10-2024
+  @last modified by  : minju.park@dkbmc.com
+-->
+<apex:page >
+    <html lang="ko">
+        <head>
+          <meta charset="UTF-8"></meta>
+          <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
+        
+          <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+          <title>5XX Level Errors page</title>
+        </head>
+        <body>
+            <h1> 5XX Level Errors </h1>
+            <h2>::CLOUDFLARE_ERROR_500S_BOX::</h2>
+        </body>
+    </html>
+</apex:page>

@@ -1,0 +1,15 @@
+<!--
+  @description       : 
+  @author            : minju.park@dkbmc.com
+  @group             : 
+  @last modified on  : 12-02-2024
+  @last modified by  : minju.park@dkbmc.com
+-->
+<apex:page standardController="Opportunity">
+    <apex:pageBlockSection >
+        <apex:outputField value="{! Opportunity.Name }"/>
+        <apex:outputField value="{! Opportunity.Amount }"/>
+        <apex:outputField value="{! Opportunity.CloseDate }"/>
+        <apex:outputField value="{! Opportunity.Account.Name }"/>
+    </apex:pageBlockSection>
+</apex:page>

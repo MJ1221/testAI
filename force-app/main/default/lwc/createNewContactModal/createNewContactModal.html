@@ -1,0 +1,74 @@
+<template >
+    <lightning-modal-header label="New Contact"></lightning-modal-header>
+    <lightning-modal-body>
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered"
+                        aria-label="Example table of Opportunities with vertical borders">
+                        <thead>
+                            <tr class="slds-line-height_reset">
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="First Name">
+                                        <abbr class="slds-required" title="required">*</abbr>
+                                        First Name
+                                    </div>
+                                </th>
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="Last Name">
+                                        <abbr class="slds-required" title="required">*</abbr>
+                                        Last Name
+                                    </div>
+                                </th>
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="AccountName">Account</div>
+                                </th>
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="Title">Title</div>
+                                </th>
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="Email">Email</div>
+                                </th>
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="Phone">Phone</div>
+                                </th>
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="Owner">Owner</div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template for:each={allLabel} for:item="contact" for:index="index">
+                                <tr class="slds-hint-parent" key={contact.id}>
+                                    <td data-label="First Name"  style=" width: 11vw;" >
+                                        <lightning-input  label="FirstName" data-index={index} value={contact.FirstName} onchange={changeValue} variant = "label-hidden"></lightning-input>
+                                    </td>
+                                    <td data-label="Last Name"   style="width: 11vw;" >
+                                        <lightning-input label="LastName"  data-index={index} value={contact.LastName} onchange={changeValue} variant = "label-hidden" required="true"></lightning-input>
+                                    </td>
+                                    <td data-label="AccountId"   style="width: 11vw;" >
+                                        <lightning-input label="AccountId"  data-index={index} value={accSt} onchange={changeValue} variant = "label-hidden" disabled="true"></lightning-input>
+                                    </td>
+                                    <td data-label="Title"   style="width: 11vw;" >
+                                        <lightning-input label="Title"  data-index={index} value={contact.Title} onchange={changeValue} variant = "label-hidden"></lightning-input>
+                                    </td>
+                                    <td data-label="Email"   style="width: 11vw;" >
+                                        <lightning-input label="Email" placeholder="youraddress@company.com"  data-index={index} value={contact.Email} onchange={changeValue} variant = "label-hidden" ></lightning-input>
+                                    </td>   
+                                    <td data-label="Phone"  style=" width: 11vw;" >
+                                        <lightning-input label="Phone"  data-index={index} value={contact.Phone} onchange={changeValue} variant = "label-hidden" placeholder="000-0000-0000"></lightning-input>
+                                    </td>   
+                                    <td data-label="OwnerId"  style=" width: 11vw;"  >
+                                        <lightning-input label="OwnerId"  data-index={index} value={ownerSt} onchange={changeValue} variant = "label-hidden" disabled="true"></lightning-input>
+                                    </td>
+                                    <td class="slds-cell_action-mode" role = "gridcell">
+                                        <lightning-button-icon icon-name="utility:close"  data-index={index} data-id="delete"   alternative-text="Close " title="Close" onclick={deleteRow}></lightning-button-icon>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>    
+    </lightning-modal-body>
+    <lightning-modal-footer>
+        <button class="slds-button slds-button_neutral" aria-label="Add" style="margin-right:76vw" onclick={addRow}>Add</button>
+        <button class="slds-button slds-button_neutral" aria-label="Cancel and close">Cancel</button>
+        <button class="slds-button slds-button_brand" onclick={saveContact}>Save</button>
+    </lightning-modal-footer>
+</template>

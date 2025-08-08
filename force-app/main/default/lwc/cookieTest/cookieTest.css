@@ -1,0 +1,235 @@
+/* 확인 후 삭제 */
+@font-face {
+    font-family: "LGEIText";
+    font-weight: 700;
+    src: url("./font/LGEIText-Bold.otf");
+}  
+@font-face {
+font-family: "LGEIText";
+font-weight: 400;
+src: url("./font/LGEIText-Regular.otf");
+}  
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "LGEIText" ,Sans-serif;
+    font-weight: 400;
+    color: #000;
+    font-size: 16px;
+    line-height: 1.4;
+}
+body{
+    position: relative;
+    height: 100vh;
+}
+a{
+    text-decoration: none;
+}
+button{
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+ul{
+    list-style-type: none;
+}
+/* //확인 후 삭제 */
+
+
+
+
+
+
+
+/* 텍스트 */
+[class*="cookies_"] strong{
+    display: block;
+    padding-bottom: 20px;
+    font-weight: bold;
+}
+[class*="link_"]{
+    display: inline-block;
+    margin-top: 20px;
+    border-bottom: 1px solid #000
+}
+.link_privacy{
+    margin: 20px 0;
+    border-bottom: 1px solid #A50034;
+    color: #A50034;
+}
+/* 버튼 */
+[class*="btn_"]{
+    display: block;
+    height: 40px;
+    padding: 0 40px;
+    border-radius: 50px;
+    border: 1px solid #000;
+    background-color: #fff;
+    color: #000;
+}
+[class*="btn_"]:hover{
+    background-color: #FAF9F7;
+}
+.btn_accept{
+    border: 1px solid #FD312E;
+    background-color: #FD312E;
+    color: #fff;
+}
+.btn_accept:hover{
+    border: 1px solid #EF645B;
+    background-color: #EF645B;
+}
+.btns_wrap{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 40px;
+
+}
+/* switch */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 46px;
+    height: 26px;
+  }
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 50px;
+    background-color: #000;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 4px;
+    bottom: 4px;
+    border-radius: 50%;
+    background-color: #fff;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  input:checked + .slider {
+    background-color: #FD312E;
+  }
+  input:checked + .slider:before {
+    transform: translateX(20px);
+  }
+/* //switch */
+
+
+
+
+
+
+.cookies_wrap{
+    padding: 40px 0 37px;
+    background-color: #F0ECE4;
+}
+.cookies_cont{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 48px;
+    width: 1432px;
+    margin: auto;
+}
+.cookies_txts strong{
+    font-size: 24px;
+    
+}
+.cookies_btns button{
+    width: 250px;
+}
+.cookies_btns button + button{
+    margin-top: 10px;
+}
+
+
+
+
+
+.cookies_popup.active{
+    display: block;
+}
+.cookies_popup{
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.cookies_popup_cont{
+    width: 580px;
+    padding: 40px 40px 50px;
+    background-color: #F0ECE4;
+}
+.cookies_popup_txts strong{
+    font-size: 20px;
+}
+
+
+
+
+
+.cookies_popup_accor{
+    margin-top: 40px;
+}
+.cookies_popup_accor strong{
+    border-bottom: 1px solid #CDCDCD;
+    font-size: 16px;
+}
+.cookies_popup_accor li{
+    border-bottom: 1px solid #CDCDCD;
+}
+.cookies_popup_accor .tit{
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 20px 0 20px 22px;
+}
+.cookies_popup_accor .tit::before{
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    background-image: url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 10 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='4' width='2' height='10' rx='1' fill='black'/%3E%3Crect x='10' y='4' width='2' height='10' rx='1' transform='rotate(90 10 4)' fill='black'/%3E%3C/svg%3E");
+    background-repeat: no-repeat no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+.cookies_popup_accor li .cont{
+    height: 0;
+    padding: 0 20px;
+    opacity: 0;
+    background-color: #fff;
+    visibility: hidden;
+    transition: all .3s;
+}
+.cookies_popup_accor li.active .cont{
+    height: auto;
+    padding: 20px;
+    opacity: 1;
+    visibility: visible;
+}

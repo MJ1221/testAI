@@ -1,0 +1,19 @@
+<!--
+  @description       : 
+  @author            : hayoon.jung@dkbmc.com
+  @group             : 
+  @last modified on  : 03-06-2024
+  @last modified by  : minju.park@dkbmc.com
+-->
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+	<lightning:card>
+        <lightning:tabset>
+            <lightning:tab label="상품 조회">
+                <div style="height: 100%;">
+                </div>
+            </lightning:tab>
+            <lightning:tab label="주문 상품 이력 조회">
+            </lightning:tab>
+        </lightning:tabset>
+    </lightning:card>
+</aura:component>

@@ -1,0 +1,127 @@
+<!-- sldsValidatorIgnore -->
+<template>
+    <div style="width: 100%; height:100%">
+        <article class="slds-card">
+            <div class="slds-card__header slds-grid" >
+                <header class="slds-media slds-media_center slds-has-flexi-truncate" >
+                    
+                    <div class="slds-media__figure">
+                        <span class="slds-icon_container slds-icon-standard-account" title="account">
+                            <lightning-icon icon-name="standard:account" alternative-text="Account" title="Account"></lightning-icon>
+                        </span>
+                    </div>
+                    <div class="slds-media__body">
+                        <h2 class="slds-card__header-title">
+                            <a href="#" class="slds-card__header-link slds-truncate" title="Accounts">
+                                <span>Accounts</span>
+                            </a>
+                        </h2>
+                    </div>
+                    <lightning-button variant="brand-outline" label="New" title="Primary action with lighter look" onclick={handleModal} class="slds-m-left_x-small" style="float: right; margin-top:0.5vh"></lightning-button>
+                </header>
+            </div>
+            <div style="display: flex; width:100%;">
+                <lightning-input name="opportunity" label="Opportunity Name" style="width: 18%;margin-right: 1%;margin-left: 1%;margin-bottom: 1%;" onchange={searchOpp}></lightning-input>
+                <lightning-input name="account" label="Account Name" style="width: 18%;margin-right: 1%;margin-left: 1%;margin-bottom: 1%;" onchange={searchAcc}></lightning-input>
+                <lightning-combobox options={options} value={optionValue} onchange={handleCombo}></lightning-combobox>
+                <div style="width:60%;">
+                <lightning-button variant="brand-outline" label="Search" title="Primary action with lighter look" onclick={handleClick} class="slds-m-left_x-small" style="margin-top: 2.35vh; float: right; margin-right: 1vw;"></lightning-button>
+            </div>
+            </div>
+        </article>
+        <div style="margin-top: 1%; overflow-x:auto; height:75%;">
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped slds-table_col-bordered slds-has-flexi-truncate"
+            aria-label="Example table of Opportunities with striped rows" >
+            <thead>
+                <template if:true={allColumns}>
+                    <template for:each={allColumns} for:item="allColumns">
+                            <td class="" scope="col"  key={allColumns}>
+                                <div class="slds-truncate " title="Opportunity Name">{allColumns.fieldName}</div>
+                            </td>     
+                    </template>
+                </template>
+            </thead>
+            <tbody>
+                <template if:true={allList}>
+                    <template for:each={allList} for:item="allList">
+                        <tr class="slds-hint-parent" key={allList} >
+                            <td data-label="Name" scope="row">{allList.OppName}</td>
+                            <td data-label="Type" scope="row">{allList.OppType}</td>
+                            <td data-label="Amount" scope="row">{allList.OppExpectedRevenue}</td>
+                            <td data-label="ExpectedRevenue" scope="row">{allList.OppCloseData}</td>
+                            <td data-label="CloseDate" scope="row">{allList.OppStageName}</td>
+                            <td data-label="StageName" scope="row">{allList.OppProbability}</td>
+                            <td data-label="Probability" scope="row">{allList.OppOrderNumber}</td>
+                            <td data-label="OrderNumber__c" scope="row">{allList.OppMainCompetitors}</td>
+                            <td data-label="MainCompetitors__c" scope="row">{allList.OppCurrentGenerators}</td>
+                            <td data-label="CurrentGenerators__c" scope="row">{allList.OppDeliveryInstallationStatus}</td>
+                            <td data-label="DeliveryInstallationStatus__c" scope="row">{allList.OppTrackingNumber}</td>
+                            <td data-label="Account Name" scope="row">{allList.AccName}</td>
+                            <td data-label="Account Number" scope="row">{allList.AccNumnber}</td>
+                            <td data-label="Type" scope="row">{allList.AccType}</td>
+                            <td data-label="Billing Address" scope="row">{allList.AccBillingAddress}</td>
+                            <td data-label="Shipping Address" scope="row">{allList.AccShippingAddress}</td>
+                            <td data-label="Phone" scope="row">{allList.AccPhone}</td>    
+                            <td data-label="Sic" scope="row">{allList.AccSic}</td>
+                            <td data-label="Industry" scope="row">{allList.AccIndustry}</td>
+                            <td data-label="Customer Priority" scope="row">{allList.AccCustomerPriority}</td>
+                            <td data-label="SLA" scope="row">{allList.AccSLA}</td>
+                            <td data-label="Number of Locations" scope="row">{allList.AccNumberofLocations}</td>
+                            <td data-label="Upsell Opportunity" scope="row">{allList.AccUpsellOpportunity}</td>
+                            <td data-label="SLA Serial Number" scope="row">{allList.AccSLASerialNumber}</td>
+                            <td data-label="SLA Expiration Date" scope="row">{allList.AccSLAExpirationDate}</td>
+                        </tr>
+                    </template>
+                </template>
+            </tbody>
+        </table>
+    </div>
+    </div>
+    <template if:true={modal}>
+        <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open slds-modal_small" data-id="modal">
+            <div class="slds-modal__container">
+
+                <div class="slds-modal__header">
+                    <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Opportunity</h1>
+                </div>      
+                    <div class="slds-p-around_medium lgc-bg">
+                        <lightning-tile label="" >
+                            <h3 class="slds-truncate" title="Opportunity Information">Opportunity Information</h3>
+                        </lightning-tile>
+                    </div>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <lightning-input type="checkbox" label="Private" name="input1"></lightning-input>
+                    <lightning-record-edit-form object-api-name="Opportunity" >
+                        <lightning-layout>
+                            <lightning-layout-item  size="6">
+                                <lightning-input-field onchange={handleChange} field-name='Name'></lightning-input-field> 
+                                <lightning-input-field onchange={handleChange} field-name='AccountId'></lightning-input-field>
+                                <lightning-input-field onchange={handleChange} field-name='Type'></lightning-input-field>
+                                <lightning-input-field onchange={handleChange} field-name='LeadSource'></lightning-input-field>
+                                <lightning-input-field onchange={handleChange} field-name='Delivery_Amt_2__c'></lightning-input-field>
+                                <lightning-input-field onchange={handleChange} field-name='Account_Test__c'></lightning-input-field>
+                                <lightning-input-field onchange={handleChange} field-name='dateTest__c'></lightning-input-field>
+                                <lightning-input-field onchange={handleChange} field-name='Opportunity_Detail__c'></lightning-input-field>
+                                <lightning-input-field onchange={handleChange} field-name='Opportunity_Owner__c'></lightning-input-field>
+                                <lightning-input-field onchange={handleChange} field-name='Opportunity_Date__c'></lightning-input-field>
+                            </lightning-layout-item>
+                            <lightning-layout-item  size="6" >
+                                <lightning-input-field  onchange={handleChange} field-name='Amount'></lightning-input-field>
+                                <lightning-input-field  onchange={handleChange} field-name='CloseDate'></lightning-input-field>
+                                <lightning-input-field  onchange={handleChange} field-name='NextStep'></lightning-input-field>
+                                <lightning-input-field  onchange={handleChange} field-name='StageName'></lightning-input-field>
+                                <lightning-input-field  onchange={handleChange} field-name='Probability'></lightning-input-field>
+                                <lightning-input-field  onchange={handleChange} field-name='CampaignId'></lightning-input-field>
+                            </lightning-layout-item>
+                        </lightning-layout>
+                    </lightning-record-edit-form>
+                </div>
+                <div class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" aria-label="Cancel and close" onclick={closeModal} >Cancel</button>
+                    <button class="slds-button slds-button_brand" onclick={submitData}>Save</button>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+    </template>
+</template>
